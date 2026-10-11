@@ -24,4 +24,4 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 21)
 ./mvnw compile exec:java
 ```
 
-The entry point is `src/main/kotlin/dev/trafficsimulator/Main.kt`. Open `pom.xml` to import the project into an IDE. On Windows, use `mvnw.cmd` in place of `./mvnw`.
+The entry point is `src/main/kotlin/trafficsimulator/Main.kt`. Open `pom.xml` to import the project into an IDE. On Windows, use `mvnw.cmd` in place of `./mvnw`.
