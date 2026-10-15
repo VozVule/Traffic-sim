@@ -4,8 +4,10 @@ import trafficsimulator.domain.Car
 import trafficsimulator.domain.Movement
 import trafficsimulator.domain.Tile
 
+/** Proposes one car transition: null [destination] means scene exit, and [entry] marks connector admission. */
 internal data class Transition(val car: Car, val destination: Tile?, val entry: Movement? = null)
 
+/** Plans simultaneous movement against occupancy, held reservations, and rotating approach priority. */
 internal class MovementResolver(
     private val topology: Topology,
     private val cars: List<Car>,
@@ -28,6 +30,7 @@ internal class MovementResolver(
         for ((owner, movement) in reservations) claim(owner, movement)
     }
 
+    /** Returns accepted car IDs without committing their moves; closed dependency cycles remain stopped. */
     fun resolve(): Set<String> {
         for (candidate in candidates.keys) attempt(candidate)
         for (car in cars) if (requests[car.id]?.entry == null) attempt(car.id)

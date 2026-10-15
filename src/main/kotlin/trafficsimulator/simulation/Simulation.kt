@@ -6,6 +6,7 @@ import trafficsimulator.domain.Movement
 import trafficsimulator.domain.SimulationConfig
 import trafficsimulator.domain.SimulationSnapshot
 
+/** Owns an initially empty, deterministic run of a configured scene. Callers must serialize access to each instance. */
 class Simulation(config: SimulationConfig) {
     private val network = config.network
     private val topology = Topology(network)
@@ -20,8 +21,15 @@ class Simulation(config: SimulationConfig) {
     private val cursors = network.intersections.associate { it.id to 0 }.toMutableMap()
     private var published = observe(lights.associate { it.id to it.initialColor })
 
+    /** Observes the immutable completed state without advancing time or randomness; tick zero reports initial colors. */
     fun snapshot(): SimulationSnapshot = published
 
+    /**
+     * Advances one tick and returns its immutable snapshot, including the colors used for movement.
+     * Entrance admission follows movement, so newly admitted cars cannot move during this tick.
+     *
+     * @throws ArithmeticException if tick or demand counts exceed representational limits, leaving the run unchanged.
+     */
     fun step(): SimulationSnapshot {
         val nextTick = try {
             Math.addExact(tick, 1)

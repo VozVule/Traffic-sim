@@ -5,6 +5,7 @@ import java.util.Random
 import trafficsimulator.domain.Intersection
 import trafficsimulator.domain.Movement
 
+/** Samples seeded routes for intersection visits using exact decimal turning weights. */
 internal class MovementChoices(intersections: List<Intersection>, seed: Long) {
     private data class Choice(val movement: Movement, val weight: BigInteger)
     private val random = Random(seed)
@@ -17,6 +18,7 @@ internal class MovementChoices(intersections: List<Intersection>, seed: Long) {
         }
     }.toMap()
 
+    /** Returns a legal choice, or null outside an intersection approach; the caller retains it for the visit. */
     fun choose(laneId: String): Movement? {
         val options = choices[laneId] ?: return null
         if (options.size == 1) return options.single().movement
