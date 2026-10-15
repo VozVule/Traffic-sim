@@ -5,6 +5,7 @@ This is the backlog beyond the initial moving-car prototype. These features come
 The accepted release-one scope and proposed future increment order are captured in [SPEC.md](SPEC.md). Future behavioral details remain to be designed; the roadmap does not make every backlog item implementation-ready.
 
 - [ ] **Roundabouts.** Define circulation, permitted exits, entry rules, and interactions with approaching cars.
+- [ ] **Custom scenes and declarative XML scene files.** Add a human-readable, versioned XML format for creating, saving, loading, and sharing scenes and experiment settings, including predefined-template references and custom road networks. Map documents to the existing simulation model and report clear validation errors. A later visual editor should read and write the same format. XML is the chosen format; its vocabulary, parser, and editing workflow remain to be designed.
 - [ ] **Analytics.** Add measurements and reporting for traffic experiments. Candidate measures to discuss include completed journeys, throughput, queue length, and waiting time.
 - [ ] **Coordinated traffic lights.** A central goal of release 2: coordinate multiple signals, building on the independent timers of the prototype. Define control groups and how their timing is configured.
 - [ ] **Alternative traffic-light behavior.** Extend the initial timer-based signals with additional control approaches. The specific approaches are still to be selected.
